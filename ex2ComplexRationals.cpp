@@ -5,66 +5,73 @@ using namespace std;
 // e.g. 1/3, 2/5 -> 11/15
 
 struct rationalNumber {
+  void readNumber() {
+    cin >> nom;
+    cin >> denom;
+  }
+
+  void writeNumber() {
+    cout << nom << "/" << denom << endl;
+  }
+
+  // imutable
+  rationalNumber add(rationalNumber b) {
+    rationalNumber res;
+    res.nom = nom * b.denom + b.nom * denom;
+    res.denom = denom * b.denom;
+    return res;
+  }
+
+  rationalNumber& addMutable(rationalNumber b) {
+    nom = nom * b.denom + b.nom * denom;
+    denom = denom * b.denom;
+    return *this;
+  }
+
+private:
   int nom;
   int denom;
 };
 
 struct complexRationalNumber {
+  void readNumber() {
+    cout << "Real part: ";
+    realPart.readNumber();
+
+    cout << "Imag part: ";
+    imagPart.readNumber();
+  }
+
+  void writeNumber() {
+    realPart.writeNumber();
+    cout << "i:";
+    imagPart.writeNumber();
+  }
+
+  complexRationalNumber add(complexRationalNumber b) {
+    complexRationalNumber res;
+    res.realPart = realPart.add(b.realPart);
+    res.imagPart = imagPart.add(b.imagPart);
+    return res;
+  }
+
+private:
   rationalNumber realPart;
   rationalNumber imagPart;
 };
-
-rationalNumber sum(rationalNumber n1,
-                   rationalNumber n2) {
-  rationalNumber res;
-  res.nom = n1.nom * n2.denom + n2.nom * n1.denom;
-  res.denom = n1.denom * n2.denom;
-  return res;
-}
-
-complexRationalNumber sum(complexRationalNumber n1,
-                          complexRationalNumber n2) {
-
-  complexRationalNumber res;
-  res.realPart = sum(n1.realPart, n2.realPart);
-  res.imagPart = sum(n1.imagPart, n2.imagPart);
-  return res;
-}
-
-void readNumber(rationalNumber & n) {
-  cin >> n.nom;
-  cin >> n.denom;
-}
-
-void readNumber(complexRationalNumber & n) {
-  cout << "Real part: ";
-  readNumber(n.realPart);
-  cout << "Imag part: ";
-  readNumber(n.imagPart);
-}
-
-void writeNumber(rationalNumber n) {
-  cout << n.nom << "/" << n.denom << endl;
-}
-
-void writeNumber(complexRationalNumber n) {
-  writeNumber(n.realPart);
-  cout << "i:";
-  writeNumber(n.imagPart);
-}
 
 int main() {
   complexRationalNumber n1;
   complexRationalNumber n2;
 
   cout << "Enter n1: ";
-  readNumber(n1);
+  n1.readNumber();
 
   cout << "Enter n2: ";
-  readNumber(n2);
+  n2.readNumber();
 
-  complexRationalNumber result = sum(n1, n2);
+  complexRationalNumber result = n1.add(n2);
   cout << "Result: ";
-  writeNumber(result);
+  result.writeNumber();
   return 0;
 }
