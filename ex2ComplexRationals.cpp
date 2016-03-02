@@ -4,64 +4,67 @@ using namespace std;
 // input: 2 rational numbers, output: their sum
 // e.g. 1/3, 2/5 -> 11/15
 
-void sum(
-      // число 1
-      int n1nom, int n1denom, int n1inom, int n1idenom
-      // число 2
-      int n2nom, int n2denom, int n2inom, int n2idenom
-      // резултат
-      int & resultNom, int & resultDenom, int & resultiNom, int & resultiDenom) {
-  // ...
+struct rationalNumber {
+  int nom;
+  int denom;
+};
+
+struct complexRationalNumber {
+  rationalNumber realPart;
+  rationalNumber imagPart;
+};
+
+rationalNumber sum(rationalNumber n1,
+                   rationalNumber n2) {
+  rationalNumber res;
+  res.nom = n1.nom * n2.denom + n2.nom * n1.denom;
+  res.denom = n1.denom * n2.denom;
+  return res;
 }
 
-void sum(int n1nom, int n1denom,
-         int n2nom, int n2denom,
-         int & resultNom, int & resultDenom) {
+complexRationalNumber sum(complexRationalNumber n1,
+                          complexRationalNumber n2) {
 
-  resultNom = n1nom * n2denom + n2nom * n1denom;
-  resultDenom = n1denom * n2denom;
+  complexRationalNumber res;
+  res.realPart = sum(n1.realPart, n2.realPart);
+  res.imagPart = sum(n1.imagPart, n2.imagPart);
+  return res;
+}
+
+void readNumber(rationalNumber & n) {
+  cin >> n.nom;
+  cin >> n.denom;
+}
+
+void readNumber(complexRationalNumber & n) {
+  cout << "Real part: ";
+  readNumber(n.realPart);
+  cout << "Imag part: ";
+  readNumber(n.imagPart);
+}
+
+void writeNumber(rationalNumber n) {
+  cout << n.nom << "/" << n.denom << endl;
+}
+
+void writeNumber(complexRationalNumber n) {
+  writeNumber(n.realPart);
+  cout << "i:";
+  writeNumber(n.imagPart);
 }
 
 int main() {
-   // число 1
-  int n1nom;
-  int n1denom;
-  int n1inom;
-  int n1idenom;
-
-  // число 2
-  int n2nom;
-  int n2denom;
-  int n2inom;
-  int n2idenom;
-
-  // резултат
-  int resultNom;
-  int resultDenom;
-  int resultiNom;
-  int resultiDenom;
+  complexRationalNumber n1;
+  complexRationalNumber n2;
 
   cout << "Enter n1: ";
-  cin >> n1nom;
-  cin >> n1denom;
-  cin >> n1inom;
-  cin >> n1idenom;
+  readNumber(n1);
 
   cout << "Enter n2: ";
-  cin >> n2nom;
-  cin >> n2denom;
-  cin >> n2inom;
-  cin >> n2idenom;
+  readNumber(n2);
 
-  sum(n1nom, n1denom, n1inom, n1idenom,
-      n2nom, n2denom, n2inom, n2idenom,
-      resultNom, resultDenom, resultiNom, resultiDenom);
-
-  cout << "Result: "
-       << resultNom << "/" << resultDenom
-       << " + i("
-       << resultiNom << "/" << resultiDenom
-       << ")"
-       << endl;
+  complexRationalNumber result = sum(n1, n2);
+  cout << "Result: ";
+  writeNumber(result);
   return 0;
 }
