@@ -15,10 +15,10 @@ using namespace std;
   Числото се създава само чрез конструктор, който приема цяла и десетична част.
 */
 
-bool validateDecimal() {
+bool testDecimal() {
   Decimal x(0, 0), y(1, 0), z(3, 0);
   Decimal a(1, 5), b(2, 25);
-  Decimal n(0, -25); // !!!
+  Decimal n(0, -25), m(-1, 25); // !!!
 
   if (x.equal(y)) return false;
   if (!y.equal(y)) return false;
@@ -38,6 +38,10 @@ bool validateDecimal() {
   if (!n.add(b).equals(Decimal(2, 0))) return false;
   if (!b.add(n).equals(Decimal(2, 0))) return false;
   if (!a.add(n).equals(Decimal(1, 25))) return false;
+
+  if (!a.add(m).equals(Decimal(0, 25))) return false;
+  if (!y.add(m).equals(Decimal(0, -25))) return false;
+  if (!a.add(n).add(m).equals(Decimal(0, 0))) return false;
 
   return true;
 }
