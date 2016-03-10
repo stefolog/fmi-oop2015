@@ -14,6 +14,7 @@ def move_file(file, dir)
   FileUtils.mv(file, "#{dir}/#{file}")
 end
 
+# Current folder name and its files.
 folder = Dir.pwd
 
 files = Dir.entries(folder).select do |f|
