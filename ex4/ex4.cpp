@@ -1,6 +1,6 @@
 #include <iostream>
 #include <math.h>
-#include "Decimal.cpp" // ex3.cppc
+#include "Decimal.cpp" // ex3.cpp
 using namespace std;
 
 
