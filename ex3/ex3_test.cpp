@@ -1,5 +1,6 @@
 #include <iostream>
-#include "ex3.cpp"
+#include "Decimal.cpp"
+
 using namespace std;
 
 bool test_length() {
@@ -87,11 +88,15 @@ bool test_Decimal() {
   if (!a.add(n).add(m).equals(Decimal(0, 0))) return false;
 
   cout << "Test 17..." << endl;
+  Decimal zero1(0, 01);
+  Decimal zero2(0, 2);
+
+  if (!zero1.add(zero2).equals(Decimal(0, 21))) return false;
+   
   // 0.01
   // 0.01 + 0.20 -> 0.21
-  return false;
 
-  // return true;
+  return true;
 }
 
 int main() {
