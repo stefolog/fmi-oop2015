@@ -34,9 +34,36 @@ int trimRight(int n) {
 
 class Decimal {
 public:
-  Decimal(int intPart, int decPart) {
-    this->intPart = intPart;
-    this->decPart = decPart;
+  Decimal(int intPart, int decPart, int zeroesAfterDecPoint = 0) {
+    this->negative = (intPart < 0 || decPart < 0);
+
+    this->intPart = abs(intPart);
+    this->decPart = abs(decPart);
+    this->zeroesAfterDecPoint = zeroesAfterDecPoint < 0 ? 0 : zeroesAfterDecPoint;
+  }
+
+  Decimal(char sign, int intPart, int decPart) {
+    this->negative = (sign == '-');
+
+    this->intPart = abs(intPart);
+    this->decPart = abs(decPart);
+    this->zeroesAfterDecPoint = 0;
+  }
+
+  Decimal(bool isPositive, int intPart, int decPart) {
+    this->negative = (!isPositive);
+
+    this->intPart = abs(intPart);
+    this->decPart = abs(decPart);
+    this->zeroesAfterDecPoint = 0;
+  }
+
+  static Decimal createPositive(int intPart, int decPart) {
+    return Decimal('+', intPart, decPart);
+  }
+
+  static Decimal createNegative(int intPart, int decPart) {
+    return Decimal('-', intPart, decPart);
   }
 
   Decimal add(Decimal other) const {
@@ -65,11 +92,24 @@ public:
     return intPart == other.intPart && decPart == other.decPart;
   }
 
+  bool isNegative() const {
+    return negative;
+  }
+
   void print() const {
-    cout << intPart << "." << decPart << endl;
+    if (isNegative()) {
+      cout << "-";
+    }
+    cout << abs(intPart) << ".";
+    for (int i = 0; i < zeroesAfterDecPoint; i++) {
+      cout << 0;
+    }
+    cout << abs(decPart) << endl;
   }
 
 private:
   int intPart;
   int decPart;
+  bool negative;
+  int zeroesAfterDecPoint;
 };
