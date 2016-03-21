@@ -64,7 +64,6 @@ public:
 
   static Decimal createNegative(int intPart, int decPart) {
     return Decimal('-', intPart, decPart);
-  }
 
   Decimal add(Decimal other) const {
     int maxLength = max(length(decPart), length(other.decPart));
@@ -92,6 +91,7 @@ public:
     return intPart == other.intPart && decPart == other.decPart;
   }
 
+<<<<<<< HEAD
   bool isNegative() const {
     return negative;
   }
@@ -105,11 +105,18 @@ public:
       cout << 0;
     }
     cout << abs(decPart) << endl;
+=======
+  void print() const {
+    cout << intPart << "." << decPart << endl;
+>>>>>>> 89fdeb8... Ex 4: Initial commit
   }
 
 private:
   int intPart;
   int decPart;
+<<<<<<< HEAD
   bool negative;
   int zeroesAfterDecPoint;
+=======
+>>>>>>> 89fdeb8... Ex 4: Initial commit
 };
