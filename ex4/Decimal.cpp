@@ -64,7 +64,6 @@ public:
 
   static Decimal createNegative(int intPart, int decPart) {
     return Decimal('-', intPart, decPart);
-  }
 
   Decimal add(Decimal other) const {
     int maxLength = max(length(decPart), length(other.decPart));
