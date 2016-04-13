@@ -1,6 +1,7 @@
 #include <iostream>
-using namespace std;
 #include "Person.cpp"
+
+using namespace std;
 
 Person f(Person p) {
   p.write();
@@ -16,12 +17,7 @@ Person f(Person p) {
 }
 
 int main() {
-  Person Y;
-  // Person Z;
-  // Z = f(Y);
-
-  // Y.write();
-  // Z.write();
-
+  Person X;
+  Person Y(f(X));
   return 0;
 }
