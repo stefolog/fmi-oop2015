@@ -15,6 +15,15 @@ public:
   static Decimal createPositive(int intPart, int decPart);
   static Decimal createNegative(int intPart, int decPart);
 
+  bool operator==(const Decimal& other) const;
+  Decimal operator+(const Decimal& other) const;
+  // operator-
+  // operator*
+  // operator<
+  // operator>
+  // operator>=
+  // operator<=
+
   Decimal add(Decimal other) const;
   Decimal substract(Decimal other) const;
   bool equals(Decimal other) const;

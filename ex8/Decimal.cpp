@@ -89,6 +89,22 @@ Decimal Decimal::substract(Decimal other) const {
   return Decimal(intPart - other.intPart, decPart - other.decPart);
 }
 
+
+
+// operators
+bool Decimal::operator==(const Decimal& other) const {
+  return this->equals(other);
+}
+
+Decimal Decimal::operator+(const Decimal& other) const {
+  return this->add(other);
+}
+
+
+
+
+
+
 bool Decimal::equals(Decimal other) const {
   return intPart == other.intPart && decPart == other.decPart;
 }
