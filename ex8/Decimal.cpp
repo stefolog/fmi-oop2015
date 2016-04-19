@@ -96,7 +96,7 @@ bool Decimal::operator==(const Decimal& other) const {
   return this->equals(other);
 }
 
-Decimal Decimal::operator+(const Decimal& other) const {
+const Decimal Decimal::operator+(const Decimal& other) const {
   return this->add(other);
 }
 
