@@ -66,6 +66,31 @@ public:
     return (*this < other || *this == other);
   }
 
+  Decimal& operator++() {
+    intPart++;
+    return *this;
+  }
+
+  Decimal operator++(int x) {
+    Decimal temp(*this);
+    intPart++;
+    return temp;
+  }
+
+  int operator[](int idx) {
+    if (idx == 0) {
+      return intPart;
+    } else if (idx == 1) {
+      return decPart;
+    } else {
+      return 0;
+    }
+  }
+
+  // Decimal operator++() {
+  //   return *this + Decimal(1, 0, 0);
+  // }
+
   Decimal add(Decimal other) const;
   Decimal substract(Decimal other) const;
   bool equals(Decimal other) const;
@@ -75,7 +100,7 @@ public:
     cout << "Enter decimal number: " << endl;
 
     cout << "int part: ";
-    cin >> thintPart;
+    cin >> intPart;
 
     cout << "dec part: ";
     cin >> decPart;
