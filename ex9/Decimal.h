@@ -66,30 +66,38 @@ public:
     return (*this < other || *this == other);
   }
 
-  Decimal& operator++() {
+
+  Decimal& operator++() { // prefix
     intPart++;
     return *this;
   }
 
-  Decimal operator++(int x) {
+  Decimal operator++(int _) { // postfix
     Decimal temp(*this);
     intPart++;
     return temp;
   }
+
 
   int operator[](int idx) {
     if (idx == 0) {
       return intPart;
     } else if (idx == 1) {
       return decPart;
-    } else {
-      return 0;
     }
+    return 0;
   }
 
-  // Decimal operator++() {
-  //   return *this + Decimal(1, 0, 0);
-  // }
+  int operator[](const char* name) {
+    if (strcmp(name, "intPart") == 0) {
+      return intPart;
+    } else if (strcmp(name, "decPart") == 0) {
+      return decPart;
+    }
+    return 0;
+  }
+
+
 
   Decimal add(Decimal other) const;
   Decimal substract(Decimal other) const;
