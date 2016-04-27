@@ -1,28 +1,10 @@
 #include <iostream>
 using namespace std;
 
+class ChessBoardFactory;
 
 // Singleton
 class ChessBoard {
-
-public:
-  static ChessBoard& getInstance() {
-    if (instance == NULL) {
-      instance = new ChessBoard();
-    }
-
-    return *instance;
-  }
-
-  static void leaseInstance() {
-    if (instance != NULL) {
-      delete instance;
-      instance = NULL;
-    }
-  }
-
-private:
-  static ChessBoard* instance;
 
 private:
   ChessBoard() {
@@ -31,9 +13,49 @@ private:
 
 private:
   int board[8][8];
+
+friend class ChessBoardFactory;
 };
 
-ChessBoard* ChessBoard::instance = NULL;
+class ChessBoardFactory {
+public:
+  // Canonical presentation -------------------------------
+  ChessBoardFactory() {
+    this->instance = NULL;
+  }
+
+  ChessBoardFactory(const ChessBoardFactory& other) {
+    instance = other.instance;
+  }
+
+  ChessBoardFactory& operator=(const ChessBoardFactory& other) {
+    if (this != &other) {
+      if (instance != NULL) {
+        delete instance;
+      }
+      instance = other.instance;
+    }
+
+    return *this;
+  }
+
+  ~ChessBoardFactory() {
+    if (instance != NULL)
+      delete instance;
+  }
+  // Canonical presentation END ---------------------------
+
+  ChessBoard& getInstance() {
+    if (instance == NULL) {
+      instance = new ChessBoard();
+    }
+    return *instance;
+  }
+private:
+  ChessBoard* instance;
+};
+
+
 
 // Multiton
 // max 22 instances
@@ -74,15 +96,18 @@ private:
 ActivePlayer* ActivePlayer::instances[22] = {0};
 
 int main() {
+  ChessBoardFactory factory;
   // ChessBoard board; // Error because of private constructor
-  ChessBoard& board = ChessBoard::getInstance(); // create new instace
-  ChessBoard& board1 = ChessBoard::getInstance();
-  ChessBoard& board2 = ChessBoard::getInstance();
-  ChessBoard& board3 = ChessBoard::getInstance();
+  ChessBoard& board = factory.getInstance(); // create new instace
+  ChessBoard& board1 = factory.getInstance();
+  ChessBoard& board2 = factory.getInstance();
+  ChessBoard& board3 = factory.getInstance();
 
   if (&board == &board1 && &board1 == &board2 && &board2 == &board3) {
     cout << "All references point to one instance" << endl;
   }
+
+  cout << endl << endl << endl << endl;
 
   for (int i = 0 ; i < 22; i++) {
     // only this will create new instance
@@ -97,7 +122,6 @@ int main() {
 
   // free memory
   ActivePlayer::leaseInstances();
-  ChessBoard::leaseInstance();
 
   return 0;
 }

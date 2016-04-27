@@ -35,3 +35,5 @@ Reference
 [Singleton|https://en.wikipedia.org/wiki/Singleton_pattern]
 [Multiton|https://en.wikipedia.org/wiki/Multiton_pattern]
 [Factory Method|https://en.wikipedia.org/wiki/Factory_method_pattern]
+[SOLID Principles|https://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29]
+[Friend classes in C++|http://www.cplusplus.com/doc/tutorial/inheritance/]
