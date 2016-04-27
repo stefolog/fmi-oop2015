@@ -1,7 +1,44 @@
 #include <iostream>
 using namespace std;
 
-class ChessBoardFactory;
+template <typename T>
+class SingletonFactory {
+public:
+  // Canonical presentation -------------------------------
+  SingletonFactory() {
+    this->instance = NULL;
+  }
+
+  SingletonFactory(const SingletonFactory& other) {
+    instance = other.instance;
+  }
+
+  SingletonFactory& operator=(const SingletonFactory& other) {
+    if (this != &other) {
+      if (instance != NULL) {
+        delete instance;
+      }
+      instance = other.instance;
+    }
+
+    return *this;
+  }
+
+  ~SingletonFactory() {
+    if (instance != NULL)
+      delete instance;
+  }
+  // Canonical presentation END ---------------------------
+
+  T& getInstance() {
+    if (instance == NULL) {
+      instance = new T();
+    }
+    return *instance;
+  }
+private:
+  T* instance;
+};
 
 // Singleton
 class ChessBoard {
@@ -14,47 +51,8 @@ private:
 private:
   int board[8][8];
 
-friend class ChessBoardFactory;
+friend class SingletonFactory<ChessBoard>;
 };
-
-class ChessBoardFactory {
-public:
-  // Canonical presentation -------------------------------
-  ChessBoardFactory() {
-    this->instance = NULL;
-  }
-
-  ChessBoardFactory(const ChessBoardFactory& other) {
-    instance = other.instance;
-  }
-
-  ChessBoardFactory& operator=(const ChessBoardFactory& other) {
-    if (this != &other) {
-      if (instance != NULL) {
-        delete instance;
-      }
-      instance = other.instance;
-    }
-
-    return *this;
-  }
-
-  ~ChessBoardFactory() {
-    if (instance != NULL)
-      delete instance;
-  }
-  // Canonical presentation END ---------------------------
-
-  ChessBoard& getInstance() {
-    if (instance == NULL) {
-      instance = new ChessBoard();
-    }
-    return *instance;
-  }
-private:
-  ChessBoard* instance;
-};
-
 
 
 // Multiton
@@ -96,8 +94,9 @@ private:
 ActivePlayer* ActivePlayer::instances[22] = {0};
 
 int main() {
-  ChessBoardFactory factory;
   // ChessBoard board; // Error because of private constructor
+
+  SingletonFactory<ChessBoard> factory;
   ChessBoard& board = factory.getInstance(); // create new instace
   ChessBoard& board1 = factory.getInstance();
   ChessBoard& board2 = factory.getInstance();
