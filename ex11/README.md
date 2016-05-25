@@ -38,8 +38,9 @@ FigureColor - изберете представяне и инициализац�
   + bool isWhite()
   + bool isBlack()
 
+**Задача 2** Да се имплементира йерархията от класове от диаграмата (chess_board_v1.png)
+
 Reference
 ---
  * [Head First: OOD&A](http://www.headfirstlabs.com/books/hfooad/)
  * [Top-Down/Bottom-Up](https://en.wikipedia.org/wiki/Top-down_and_bottom-up_design)
-
